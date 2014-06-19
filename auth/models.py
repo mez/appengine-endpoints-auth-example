@@ -99,3 +99,14 @@ class User(BaseUserExpando):
             A token object, or None if one could not be created.
         """
         return cls.token_model.create(user_id, 'bearer')
+        
+    @classmethod
+    def delete_bearer_token(cls, user_id, token):
+        """Deletes a given bearer authorization token.
+
+        :param user_id:
+            User unique ID.
+        :param token:
+            A string with the authorization token.
+        """
+        cls.token_model.get_key(user_id, 'bearer', token).delete()
